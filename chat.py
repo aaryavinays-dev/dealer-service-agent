@@ -35,5 +35,6 @@ while True:
         break
     history.append({"role": "user", "content": text})       # user dict
     response = openai.responses.create(model=deployment, instructions=INSTRUCTIONS, input=history)
-    print(response.output_text)                   # the bot's answer
+    print(response.output_text)  
+    print(f"Tokens in: {response.usage.input_tokens}, out: {response.usage.output_tokens}, total: {response.usage.total_tokens}")                 # the bot's answer
     history.append({"role":"assistant", "content": response.output_text})          # assistant dict
