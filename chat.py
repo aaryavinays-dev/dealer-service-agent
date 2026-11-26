@@ -13,9 +13,8 @@ load_dotenv()
 endpoint = os.getenv("AZURE_AI_PROJECT_ENDPOINT")
 deployment = os.getenv("MODEL_DEPLOYMENT")
 
-# 5. Print both, to check they loaded
-print(endpoint)
-print(deployment)
+if not endpoint or not deployment:
+    raise SystemExit("Missing ENDPOINT OR DEPLOYMENT")
 
 INSTRUCTIONS = """You help dealership service advisors find and track vehicle safety recalls.
 Only answer questions about safety recalls and vehicle service.
@@ -29,6 +28,12 @@ project = AIProjectClient(endpoint=endpoint, credential=DefaultAzureCredential()
 # 7. Get the OpenAI client (room service) from the project
 openai = project.get_openai_client()
 
-response = openai.responses.create(model=deployment, instructions=INSTRUCTIONS, input="What's a good pizza place near Northville?")
-print(response.output_text)
-
+history = []
+while True:
+    text = input("You: ")
+    if text == "quit":
+        break
+    history.append({"role": "user", "content": text})       # user dict
+    response = openai.responses.create(model=deployment, instructions=INSTRUCTIONS, input=history)
+    print(response.output_text)                   # the bot's answer
+    history.append({"role":"assistant", "content": response.output_text})          # assistant dict
