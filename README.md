@@ -13,5 +13,15 @@ my experience at FordDirect and my own research.
 2. Explain each recall to service advisors, with sources
 3. Draft outreach to owners and book service, with human approval
 
+## Design choices
+| Job | Service / model | Why |
+|---|---|---|
+| Chat | gpt-5.4-mini | Cheap and fast |
+| Recall lookup (planned, Lab 2-3) | Model calls a tool; Azure AI Search over recall documents | Grounds answers in the actual recall documents |
+| VIN format check (planned, Lab 3) | Plain Python, no model | Free, instant, exact |
+| Read recall PDFs (planned, Lab 4) | Azure AI Document Intelligence | Pulls text and tables reliably |
+| Voice (planned, Lab 5) | Azure AI Speech | Speech-to-text in, text-to-speech out |
+| Read a photo (planned, Lab 6) | Multimodal GPT with vision, or Azure AI Vision | GPT with vision understands the whole photo (damage, labels); Azure AI Vision is cheaper when you only need the text |
+
 ## Status
-v0: project setup (no AI features built yet)
+v1: chat loop with history, guardrail and env check
