@@ -34,7 +34,12 @@ while True:
     if text == "quit":
         break
     history.append({"role": "user", "content": text})       # user dict
-    response = openai.responses.create(model=deployment, instructions=INSTRUCTIONS, input=history)
+    try:
+        response = openai.responses.create(model=deployment, instructions=INSTRUCTIONS, input=history)
+    except Exception as e:
+        print(f"Error: {e}")
+        history.pop()        # undo the user message
+        continue             # back to "You:"
     print(response.output_text)  
     print(f"Tokens in: {response.usage.input_tokens}, out: {response.usage.output_tokens}, total: {response.usage.total_tokens}")                 # the bot's answer
     history.append({"role":"assistant", "content": response.output_text})          # assistant dict
