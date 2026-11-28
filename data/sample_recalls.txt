@@ -1,0 +1,4 @@
+# SAMPLE DATA, not real recalls
+Honda | Civic | 2020 | SAMPLE-R001 | Fuel pump may fail, causing the engine to stall.
+Toyota | Camry | 2019 | SAMPLE-R002 | Airbag sensor may not detect a front passenger.
+Ford | F-150 | 2021 | SAMPLE-R003 | Rear camera image may not display when reversing.
